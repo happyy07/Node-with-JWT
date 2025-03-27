@@ -4,13 +4,16 @@ const workoutRoutes = require("./routes/workouts");
 const userRoutes = require("./routes/user");
 const mongoose = require("mongoose");
 const cors = require("cors"); // Import the cors package
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = process.env.PORT || 5000;
 
+app.use(cookieParser());
+
 // Configure CORS to allow requests from your frontend URL
 const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000";
-app.use(cors({ origin: frontendURL }));
+app.use(cors({ origin: frontendURL, credentials: true }));
 
 // Middleware to parse incoming JSON request bodies.
 app.use(express.json());
